@@ -506,7 +506,7 @@
       <div class="ring-dot"></div>
       <p class="quote">
         不要滿足於自己所能夠表現的框架，要勇於挑戰自己以獲得提昇。
-        <small>— 王玟又，寫在作品集的最後</small>
+        <small>— 王玟又</small>
       </p>
     </div>
 
@@ -591,16 +591,16 @@
   <h2 class="reveal">有專案想找我聊聊，<br>或單純想交流設計想法都歡迎。</h2>
   <p class="lead reveal">目前是國立高雄科技大學工業設計系學生，正在尋找產品設計 / 平面設計相關的實習與合作機會。</p>
   <div class="contact-actions reveal">
-    <a class="btn-primary" href="mailto:C113101125@nkust.edu.tw">
+    <a class="btn-primary" href="mailto:asas200656@gmail.com">
       寄封信給我
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
-    <button class="btn-ghost" id="copyEmailBtn">C113101125@nkust.edu.tw</button>
+    <button class="btn-ghost" id="copyEmailBtn">asas200656@gmail.com</button>
   </div>
 </section>
 
 <footer>
-  <span>© 2026 Wen-You Wang. All works shown are original student projects.</span>
+  <span>© Wen-You Wang. All works shown are original student projects.</span>
   <span>Kaohsiung, Taiwan</span>
 </footer>
 
@@ -669,7 +669,7 @@ const projects = [
     pages:['biaoxian1-1','biaoxian1-2','biaoxian1-3','biaoxian1-4','biaoxian1-5','biaoxian1-6',
            'biaoxian2-1','biaoxian2-2','biaoxian2-3','biaoxian2-4','biaoxian2-5','biaoxian2-6',
            'biaoxian3-1','biaoxian3-2','biaoxian3-3','biaoxian3-4','biaoxian3-5','biaoxian3-6'], videos:[] },
-  { id:'rhino', title:'Rhino 建模', sub:'3D 建模作品集', cat:'industrial',
+  { id:'rhino', title:'Rhino 建模', sub:'3D 建模作品集', cat:'industrial', ext:'png',
     desc:'以 Rhino 完成的產品建模練習集錦，題材橫跨首飾、電動工具、家具、載具與生活小物，展現對曲面與結構的掌握能力。',
     pages:['rhino1-1','rhino1-2','rhino1-3','rhino1-4','rhino1-5','rhino1-6','rhino1-7','rhino1-8','rhino1-9',
            'rhino2-1','rhino2-2','rhino2-3','rhino2-4','rhino2-5','rhino2-6','rhino2-7','rhino2-8','rhino2-9'], videos:[] },
@@ -680,7 +680,8 @@ const projects = [
 
 // 把每個作品的圖片＋影片合併成同一份「媒體清單」，lightbox 會依序播放
 function getMedia(p){
-  const imgs = p.pages.map(id => ({ type:'image', src:`full/${id}.jpg` }));
+  const ext = p.ext || 'jpg';
+  const imgs = p.pages.map(id => ({ type:'image', src:`full/${id}.${ext}` }));
   const vids = (p.videos || []).map(file => ({ type:'video', src:`videos/${file}` }));
   return [...imgs, ...vids];
 }
@@ -770,7 +771,7 @@ function renderGrid(filter){
         <div class="thumb">
           <span class="cat-chip">${catLabel[p.cat]}</span>
           ${hasVideo ? '<span class="cat-chip video-chip">▶ 含影片</span>' : ''}
-          <img src="thumbs/${cover}.jpg" alt="${p.title}" loading="lazy">
+          <img src="thumbs/${cover}.${p.ext || 'jpg'}" alt="${p.title}" loading="lazy">
         </div>
         <div class="body">
           <h3>${p.title}</h3>
@@ -787,7 +788,7 @@ function renderGrid(filter){
       if(supportsHoverMagnify){
         attachMagnifier(thumbWrap, thumbImg, {
           zoom:2.4, lensSize:130, mode:'cover',
-          srcOverride: `full/${cover}.jpg`
+          srcOverride: `full/${cover}.${p.ext || 'jpg'}`
         });
       }
       requestAnimationFrame(()=> setTimeout(()=> card.classList.add('in'), idx*40));
